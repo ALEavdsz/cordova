@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocalização</title>
+
+    <script>
+        const onLocationSuccess = function (geoloc) {
+            console.log("const getGeoposition = function(){...");
+            console.log(geoloc)
+        }
+        const onErrorLocation = function (eRR) {
+            console.log("const getGeoposition = function(){...");
+            console.log(eRR);
+        }
+        const getGeoposition = function () {
+            console.log("const getGeoposition = function(){...");
+            if (navigator.geolocation) {
+                console.log("Navegador tem suporte a geolocalização");
+                navigator.geolocation.getCurrentPosition(
+                    onLocationSuccess, onErrorLocation);
+            } else { throw new error("Navegador não tem suporte a geolocalização") }
+        }
+
+        funcaogeo = function () {
+            console.log("essa função roda após o carregamento da pagina");
+            document.getElementById("obter")
+                .addEventListener('click', getGeoposition);
+        }
+
+    </script>
+
+
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
+        body {
+            font-family: 'Comfortaa', cursive;
+            background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .aaa {
+            background-color: rgb(204, 252, 252);
+            border-radius: 7px;
+            padding: 5px;
+        }
+
+        #obter {
+            padding: 10px;
+        }
+
+        #container {
+            background-color: rgba(155, 247, 247, 0.507);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: solid;
+            border-color: rgb(117, 117, 117);
+            border-radius: 7px;
+            border-width: 1px;
+            padding: 50px;
+        }
+    </style>
+
+
+
+
+
+</head>
+
+<body onload="funcaogeo();">
+    <div>
+        <h1>OBTENDO A GEOLOCALIZAÇÃO DO DISPOSITIVO</h1>
+    </div><br><br>
+    <div id="container">
+        Latitude:
+        <input type="text" id="latitude" class="aaa">
+        <br><br>
+
+        Longitude:
+        <input type="text" id="longitude" class="aaa">
+        <br><br>
+        <button type="button" id="obter" class="aaa">OK</button>
+    </div>
+</body>
+
+</html>
