@@ -73,27 +73,32 @@
             border-width: 1px;
             padding: 50px;
         }
+
+        #geo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+        }
     </style>
-
-
-
-
-
 </head>
 
 <body onload="funcaogeo();">
-    <div>
-        <h1>OBTENDO A GEOLOCALIZAÇÃO DO DISPOSITIVO</h1>
-    </div><br><br>
-    <div id="container">
-        Latitude:
-        <input type="text" id="latitude" class="aaa">
-        <br><br>
+    <div id="geo">
+        <div>
+            <h1>OBTENDO A GEOLOCALIZAÇÃO DO DISPOSITIVO</h1>
+        </div><br><br>
+        <div id="container">
+            Latitude:
+            <input type="text" id="latitude" class="aaa">
+            <br><br>
 
-        Longitude:
-        <input type="text" id="longitude" class="aaa">
-        <br><br>
-        <button type="button" id="obter" class="aaa">OK</button>
+            Longitude:
+            <input type="text" id="longitude" class="aaa">
+            <br><br>
+            <button type="button" id="obter" class="aaa">OK</button>
+        </div>
     </div>
 </body>
 
