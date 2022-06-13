@@ -8,39 +8,66 @@
     <title>Geolocalização</title>
 
     <script>
-        const onLocationSuccess = function (geoloc) {
-            console.log("const getGeoposition = function(){...");
-            console.log(geoloc)
+        function onDeviceReady() {
+                window.watchId = navigator.geolocation.watchPosition(onLocationSuccess,
+                                                  [onLocationError],
+                                                  [geolocationOptions]);
         }
-        const onErrorLocation = function (eRR) {
-            console.log("const getGeoposition = function(){...");
-            console.log(eRR);
+        function stopWatchPos(){
+            navigator.geolocation.clearWatch(window.watchID);
         }
-        const getGeoposition = function () {
+        const onLocationSuccess = function(position) {
+            console.log("const getGeoposition = function(){...");
+            console.log(position)
+            alert('Latitude: ' + position.coords.latitude + '\n' +
+                'Longitude: ' + position.coords.longitude + '\n' +
+                'Altitude: ' + position.coords.altitude + '\n' +
+                'Accuracy: ' + position.coords.accuracy + '\n' +
+                'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+                'Heading: ' + position.coords.heading + '\n' +
+                'Speed: ' + position.coords.speed + '\n' +
+                'Timestamp: ' + position.timestamp + '\n');
+
+            document.getElementById("latitude").value = position.coords.latitude;
+            document.getElementById("longitude").value = position.coords.longitude;
+            document.getElementById("altitude").value = position.coords.altitude;
+            document.getElementById("accuracy").value = position.coords.accuracy;
+            document.getElementById("altitudeaccuracy").value = position.coords.altitudeaccuracy;
+            document.getElementById("heading").value = position.coords.heading;
+            document.getElementById("speed").value = position.coords.speed;
+            document.getElementById("timestamp").value = position.coords.timestamp;
+        }
+
+        const onLocationError = function(eRR) {
+            alert('code: ' + error.code + '\n' +
+                'message: ' + error.message + '\n');
+        }
+        geolocationOptions = {
+            maximumAge: 3000,
+            timeout: 5000,
+            enableHighAccuracy: true
+        }
+        const getGeoposition = function() {
             console.log("const getGeoposition = function(){...");
             if (navigator.geolocation) {
                 console.log("Navegador tem suporte a geolocalização");
                 navigator.geolocation.getCurrentPosition(
-                    onLocationSuccess, onErrorLocation);
-            } else { throw new error("Navegador não tem suporte a geolocalização") }
+                    onLocationSuccess, onLocationError);
+            } else {
+                throw new error("Navegador não tem suporte a geolocalização")
+            }
         }
-
-        funcaogeo = function () {
+        funcaogeo = function() {
             console.log("essa função roda após o carregamento da pagina");
             document.getElementById("obter")
                 .addEventListener('click', getGeoposition);
         }
-
     </script>
-
-
-
-
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
-
         body {
+            color: rgb(0, 0, 0);
             font-family: 'Comfortaa', cursive;
             background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
             background-repeat: no-repeat;
@@ -50,54 +77,113 @@
             align-items: center;
             flex-direction: column;
         }
-
-        .aaa {
+        
+        .input {
             background-color: rgb(204, 252, 252);
             border-radius: 7px;
             padding: 5px;
         }
-
+        
+        #labels {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .label {
+            margin: 8px;
+        }
+        
+        .input {
+            margin: 3px;
+        }
+        
+        #inputs {
+            display: flex;
+            flex-direction: column;
+        }
+        
         #obter {
             padding: 10px;
         }
-
-        #container {
+        
+        #container2 {
             background-color: rgba(155, 247, 247, 0.507);
             display: flex;
             justify-content: center;
-            align-items: center;
             flex-direction: column;
             border: solid;
             border-color: rgb(117, 117, 117);
             border-radius: 7px;
             border-width: 1px;
-            padding: 50px;
+            padding: 30px;
         }
-
-        #geo {
+        
+        #container1 {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-
+        }
+        
+        .labelsandinputs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        #button {
+            display: flex;
+            justify-content: center;
+        }
+        
+        #button button {
+            background-color: #4ca8cc;
         }
     </style>
 </head>
 
 <body onload="funcaogeo();">
-    <div id="geo">
+    <div id="container1">
         <div>
             <h1>OBTENDO A GEOLOCALIZAÇÃO DO DISPOSITIVO</h1>
-        </div><br><br>
-        <div id="container">
-            Latitude:
-            <input type="text" id="latitude" class="aaa">
-            <br><br>
+        </div>
+        <br><br>
+        <div id="container2">
+            <div class="labelsandinputs">
+                <div><label class="label" for="latitude">Latitude :</label></div>
+                <div><input type="text" id="latitude" value="" class="input"></div>
+            </div>
+            <div class="labelsandinputs">
+                <div><label class="label" for="longitude">Longitude :</label></div>
+                <div><input type="text" id="longitude" value="" class="input"></div>
+            </div>
+            <div class="labelsandinputs">
+                <div><label class="label" for="altitude">Altitude :</label></div>
+                <div><input type="text" id="altitude" value="" class="input"></div>
+            </div>
+            <div class="labelsandinputs">
+                <div><label class="label" for="accuracy">Accuracy :</label></div>
+                <div><input type="text" id="accuracy" value="" class="input"></div>
+            </div>
+            <div class="labelsandinputs">
+                <div><label class="label" for="altitudeaccuracy">Altitude Accuracy :</label></div>
+                <div><input type="text" id="altitudeaccuracy" value="" class="input"></div>
+            </div>
+            <div class="labelsandinputs">
+                <div><label class="label" for="heading">Heading :</label></div>
+                <div><input type="text" id="heading" value="" class="input"></div>
+            </div>
+            <div class="labelsandinputs">
+                <div><label class="label" for="speed">Speed :</label></div>
+                <div><input type="text" id="speed" value="" class="input"></div>
+            </div>
+            <div class="labelsandinputs">
+                <div><label class="label" for="timestamp">Timestamp :</label></div>
+                <div><input type="text" id="timestamp" value="" class="input"></div>
+            </div>
+            <br>
+            <div id="button"><button type="button" id="obter" class="input">OK</button></div>
 
-            Longitude:
-            <input type="text" id="longitude" class="aaa">
-            <br><br>
-            <button type="button" id="obter" class="aaa">OK</button>
         </div>
     </div>
 </body>
